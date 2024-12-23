@@ -1,0 +1,109 @@
+/*
+Theme Name: gambaff
+Theme URI: 
+Author: Ivan Dimitrov
+Author URI: 
+Description: 
+Requires at least: 6.0
+Tested up to: 6.5
+Requires PHP: 5.7
+Version: 0.0.3
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: gambaff
+Tags: 
+*/
+.bonus-offer-box {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: var(--wp--preset--spacing--30);
+    padding-right: var(--wp--preset--spacing--30);
+    padding-bottom: var(--wp--preset--spacing--30);
+    padding-left: var(--wp--preset--spacing--30);
+    box-shadow: var(--wp--preset--shadow--natural);
+    border: 3px solid var(--wp--preset--color--custom-color-3);
+    border-radius: 15px;
+}
+.bonus-offer-box--label {
+    font-weight: bold;
+    color: var(--wp--preset--color--custom-color-3);
+    font-size: 0.5rem;
+    border-radius: 50px;
+    text-transform: uppercase;
+}
+
+.bonus-offer-box--img {
+    font-size: 1.75rem;
+    display: flex ;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+    line-height: 1;
+    align-items: center;
+    text-align: center;
+}
+
+.cta-button {
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    background: var(--wp--preset--color--custom-color-3);
+    color: #fff;
+    padding: 10px 25px;
+    font-size: 1.5rem;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+.bonus-offer-box--tc {
+    font-size: 0.75rem;
+}
+
+.operator-review {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: var(--wp--preset--spacing--30);
+    padding-right: var(--wp--preset--spacing--30);
+    padding-bottom: var(--wp--preset--spacing--30);
+    padding-left: var(--wp--preset--spacing--30);
+    gap: 20px;
+    border: 1px solid var(--wp--preset--color--custom-color-1);
+}
+.operator-review > a {
+    color: #000;
+    text-decoration: none;
+}
+.operator-review--left {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+}
+.operator-review--right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.operator-review--name {
+    font-size: 1rem;
+    font-weight: 600;
+}
+.operator-review--type {
+    font-size: 0.75rem;
+}
+.operator-review--visit-button a { 
+    text-align: center;
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 100px;
+    width: 100%;
+    text-decoration: none;
+    background: var(--wp--preset--color--custom-color-3);
+    color: #fff;
+    box-sizing: border-box;
+}
