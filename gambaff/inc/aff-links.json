@@ -1,0 +1,62 @@
+[
+    {
+        "slug": "bet365",
+        "aff_link": "https:\/\/bet365.com\/affiliate",
+        "tc_link": "https:\/\/bet365.com\/terms"
+    },
+    {
+        "slug": "playojo",
+        "aff_link": "https:\/\/playojo.com\/affiliate",
+        "tc_link": "https:\/\/playojo.com\/terms"
+    },
+    {
+        "slug": "efbet",
+        "aff_link": "https:\/\/efbet.com\/affiliate",
+        "tc_link": "https:\/\/efbet.com\/terms"
+    },
+    {
+        "slug": "winbet",
+        "aff_link": "https:\/\/winbet.bg\/affiliate",
+        "tc_link": "https:\/\/winbet.com\/terms"
+    },
+    {
+        "slug": "betmgmcasinouk",
+        "aff_link": "https:\/\/www.betmgm.com",
+        "tc_link": "https:\/\/www.betmgm.com"
+    },
+    {
+        "slug": "allbritishcasino",
+        "aff_link": "https:\/\/www.allbritishcasino.com",
+        "tc_link": "https:\/\/www.allbritishcasino.com"
+    },
+    {
+        "slug": "betwaycasino",
+        "aff_link": "https:\/\/www.betway.com",
+        "tc_link": "https:\/\/www.betway.com"
+    },
+    {
+        "slug": "leovegascasino",
+        "aff_link": "https:\/\/www.leovegas.com",
+        "tc_link": "https:\/\/www.leovegas.com"
+    },
+    {
+        "slug": "mrqcasino",
+        "aff_link": "https:\/\/www.mrq.com",
+        "tc_link": "https:\/\/www.mrq.com"
+    },
+    {
+        "slug": "bet365casino",
+        "aff_link": "https:\/\/www.bet365.com",
+        "tc_link": "https:\/\/www.bet365.com"
+    },
+    {
+        "slug": "williamhillcasino",
+        "aff_link": "https:\/\/www.williamhill.com",
+        "tc_link": "https:\/\/www.williamhill.com"
+    },
+    {
+        "slug": "888casino",
+        "aff_link": "https:\/\/www.888casino.com",
+        "tc_link": "https:\/\/www.888casino.com"
+    }
+]

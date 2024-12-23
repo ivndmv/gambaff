@@ -1,0 +1,123 @@
+{
+    "settings": {
+        "appearanceTools": true,
+        "color": {
+            "gradients": [
+                {
+                    "color": "#000",
+                    "gradient": "linear-gradient(45deg,rgb(255,255,255) 0%,rgb(241,247,244) 100%)",
+                    "name": "Color 1",
+                    "slug": "custom-color-1"
+                },
+                {
+                    "gradient": "linear-gradient(135deg,rgb(255,255,255) 0%,rgb(210,223,210) 100%)",
+                    "name": "Color 2",
+                    "slug": "custom-color-2"
+                }
+            ],
+            "palette": [
+                {
+                    "color": "#d8f3dc",
+                    "name": "Color 1",
+                    "slug": "custom-color-1"
+                },
+                {
+                    "color": "#95d5b2",
+                    "name": "Color 2",
+                    "slug": "custom-color-2"
+                },
+                {
+                    "color": "#2d6a4f",
+                    "name": "Color 3",
+                    "slug": "custom-color-3"
+                },
+                {
+                    "color": "#081c15",
+                    "name": "Color 4",
+                    "slug": "custom-color-4"
+                }
+            ]
+        },
+        "layout": {
+            "contentSize": "620px",
+            "wideSize": "1000px"
+        },
+        "spacing": {
+            "units": [
+                "%",
+                "px",
+                "em",
+                "rem",
+                "vh",
+                "vw"
+            ]
+        },
+        "typography": {
+            "fontFamilies": [
+                {
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif",
+                    "name": "System Font",
+                    "slug": "system-font"
+                },
+                {
+                    "name": "Roboto",
+                    "slug": "roboto",
+                    "fontFamily": "Roboto, sans-serif",
+                    "fontFace": [
+                        {
+                            "src": [
+                                "file:./assets/fonts/roboto/roboto-400-normal.woff2"
+                            ],
+                            "fontWeight": "400",
+                            "fontStyle": "normal",
+                            "fontFamily": "Roboto"
+                        }
+                    ]
+                }
+            ]
+        },
+        "useRootPaddingAwareAlignments": true
+    },
+    "styles": {
+        "color": {
+            "background": "var(--wp--preset--color--white)"
+        },
+        "elements": {
+            "button": {
+                "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--roboto)"
+                }
+            },
+            "caption": {
+                "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--roboto)"
+                }
+            },
+            "heading": {
+                "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--roboto)"
+                }
+            },
+            "link": {
+                "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--roboto)"
+                }
+            }
+        },
+        "typography": {
+            "fontFamily": "var(--wp--preset--font-family--roboto)"
+        }
+    },
+    "templateParts": [
+        {
+            "area": "header",
+            "name": "header"
+        },
+        {
+            "area": "footer",
+            "name": "footer"
+        }
+    ],
+    "version": 3,
+    "$schema": "https://schemas.wp.org/wp/6.7/theme.json"
+}
