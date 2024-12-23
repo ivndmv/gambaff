@@ -153,13 +153,13 @@ function get_operator_bonus_offer_box_function($atts) {
         'get_operator_bonus_offer_box'
     );
 
-    if (is_single() && empty($atts['slug'])) {
-        $args = array(
-            'p' => get_the_ID(),
-            'post_type' => 'operator',
-        );
-    }
-    elseif (!empty($atts['count']) && empty($atts['slug'])) {
+    // if (is_single() && empty($atts['slug'])) {
+    //     $args = array(
+    //         'p' => get_the_ID(),
+    //         'post_type' => 'operator',
+    //     );
+    // }
+    if (!empty($atts['count']) && empty($atts['slug'])) {
         $args = array(
             'posts_per_page' => intval($atts['count']),
             'post_type' => 'operator',
