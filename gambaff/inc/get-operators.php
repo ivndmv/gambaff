@@ -8,11 +8,14 @@ function google_sheets($spreadsheetId, $range) {
     if(is_admin()) {
         ob_start();
         include plugin_dir_path( __FILE__ ) . '../vendor/autoload.php';
-        $creds_file = plugin_dir_path( __FILE__ ).'/api/service-account-creds.json';
+        $upload_dir = wp_upload_dir();
+        $creds_file = $upload_dir['basedir'] . '/gambaff-json/service-account-creds.json';
+        // $creds_file = plugin_dir_path( __FILE__ ).'api/service-account-creds.json';
 
         if (file_exists($creds_file)) {
-            putenv('GOOGLE_APPLICATION_CREDENTIALS='.plugin_dir_path( __FILE__ ).'/api/service-account-creds.json');
+            putenv('GOOGLE_APPLICATION_CREDENTIALS='.$creds_file);
         } else {
+            echo $creds_file;
             echo '<p>Upload your google credentials file in Manager -> API</p>';
             exit();
         }

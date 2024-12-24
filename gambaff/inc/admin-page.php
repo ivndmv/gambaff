@@ -72,8 +72,15 @@ function operators_manager_api_callback() {
                 echo '<div class="notice notice-error"><p>Only JSON files are allowed!</p></div>';
             } else {
                 // Define the target filename
-                $upload_dir = get_template_directory() . '/inc/api'; // Theme directory path
-                $target_file = $upload_dir . '/service-account-creds.json';
+                // $upload_dir = get_template_directory() . '/inc/api'; // Theme directory path
+                // $target_file = $upload_dir . '/service-account-creds.json';
+
+                $upload_dir = wp_upload_dir();
+                $upload_path = $upload_dir['basedir'] . '/gambaff-json/';
+                if(!file_exists($upload_path)) {
+                    create_gambaff_htaccess();
+                }
+                $target_file = $upload_path . 'service-account-creds.json';
 
                 // Move the uploaded file
                 if (move_uploaded_file($uploaded_file['tmp_name'], $target_file)) {
@@ -93,10 +100,11 @@ function operators_manager_api_callback() {
     $google_sheets_api_credentials_name = get_option('google_sheets_api_credentials_name', '');
     $openai_api_key = get_option('openai_api_key', '');
 
-    $file_exists = get_template_directory() . '/inc/api/service-account-creds.json';
+    $wp_content_upload_dir = wp_upload_dir();
+    $file_exists = $wp_content_upload_dir['basedir'] . '/gambaff-json/' . 'service-account-creds.json';
     $file_exists_message = 'No file uploaded';
     if (file_exists($file_exists)) {
-        $file_exists_message = 'Uploaded File: wp-content/gambaff/inc/api/<strong>'.esc_html($google_sheets_api_credentials_name).'</strong>';
+        $file_exists_message = 'Uploaded File: /wp-content/uploads/gambaff-json/<strong>'.esc_html($google_sheets_api_credentials_name).'</strong>';
     }
 
 

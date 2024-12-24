@@ -37,4 +37,6 @@ require_once( __DIR__ . '/inc/cloak-links.php');
 require_once( __DIR__ . '/inc/generate-content.php');
 require_once( __DIR__ . '/inc/generate-blog-content.php');
 // require_once( __DIR__ . '/inc/default-pages.php');
+require_once( __DIR__ . '/inc/create-htaccess.php');
+
 ?>
