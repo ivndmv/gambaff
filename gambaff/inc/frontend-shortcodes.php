@@ -143,39 +143,80 @@ function get_operator_visit_button_function() {
 // Register shortcode
 add_shortcode('get_operator_bonus_offer_box', 'get_operator_bonus_offer_box_function');
 function get_operator_bonus_offer_box_function($atts) {
+
+    // $operator_type = [];
+    // foreach (explode(",", $_POST['operator_type']) as $item) {
+    //     $operator_type[] = get_term_by('name', $item, 'operator-type')->term_id; // we get the term id
+    // }
+    // 'tax_input'     => array(
+    //             'operator-type' => $operator_type,
+    // ); // accepts only term IDs, no term name
+
     $atts = shortcode_atts(
         array(
-            'count' => 1, 
+            'count' => '', 
             'slug' => '', 
-            // 'type' => [],     
+            'type' => '',     
         ), 
         $atts, 
         'get_operator_bonus_offer_box'
     );
 
-    // if (is_single() && empty($atts['slug'])) {
+    //no shortcode attributes used (to use only in operators single template query)
+    if (empty($atts['count']) && empty($atts['slug'])) {
+        $args = array(
+            'post_type'      => 'operator',
+            'p'              => get_the_ID(),
+        );
+    }
+
+    //use both count and type atttributes - display operators of the type and count set by user (can be used in pages, posts)
+    elseif (!empty($atts['count']) && !empty($atts['type']) && empty($atts['slug'])) { 
+        foreach (explode(",", $atts['type']) as $item) {
+            $operator_types[] = get_term_by('name', $item, 'operator-type')->term_id; // we get the term id
+        }
+        $args = array(
+            'post_type'      => 'operator',
+            'post_status'    => 'publish',
+            'orderby'        => 'modified',
+            'order'          => 'DESC',
+            'posts_per_page' => intval($atts['count']),
+            'tax_query' => array(array('taxonomy' => 'operator-type', 'field' => 'slug', 'terms' => explode(",", $atts['type'])))
+        );
+    }
+
+    //use only type attribute - display all operators of the type set by user (can be used in pages, posts)
+    // elseif (!empty($atts['type']) && empty($atts['count']) && empty($atts['slug'])) { 
     //     $args = array(
-    //         'p' => get_the_ID(),
-    //         'post_type' => 'operator',
+    //         'post_type'      => 'operator',
+    //         'post_status'    => 'publish',
+    //         'orderby'        => 'modified',
+    //         'order'          => 'DESC',
+    //         'tax_query' => array(array('taxonomy' => 'operator-type', 'field' => 'slug', 'terms' => explode(",", $atts['type']))),
+    //         'posts_per_page' => -1,
     //     );
     // }
-    if (!empty($atts['count']) && empty($atts['slug'])) {
+
+    //use only count attribute - display operators of all types and count set by user (can be used in pages, posts)
+    elseif (!empty($atts['count']) && empty($atts['slug']) && empty($atts['type'])) {
         $args = array(
             'posts_per_page' => intval($atts['count']),
-            'post_type' => 'operator',
-            'post_status' => 'publish',
+            'post_type'      => 'operator',
+            'post_status'    => 'publish',
             'orderby'        => 'modified',
             'order'          => 'DESC',
         );
     }
-    elseif (!empty($atts['slug'])) {
+
+    //use slug attribute - display operator of the slug set by user no matter their type (can be used in pages, posts)
+    elseif (!empty($atts['slug']) && empty($atts['count']) && empty($atts['type'])) {
         $args = array(
-            'name' => sanitize_title($atts['slug']),
-            'post_type' => 'operator',
-            'post_status' => 'publish',
+            'name'           => sanitize_title($atts['slug']),
+            'post_type'      => 'operator',
+            'post_status'    => 'publish',
             'posts_per_page' => 1,
         );
-    }
+    } 
 
     $query = new WP_Query($args);
 
@@ -189,7 +230,7 @@ function get_operator_bonus_offer_box_function($atts) {
             
             $label = __('Bonus', 'gambaff');
             $tc_link_text = __('T&Cs', 'gambaff');
-            $button_text = __('Claim offer and play', 'gambaff');
+            $button_text = __('Claim Offer', 'gambaff');
 
             $html .= '<div class="bonus-offer-box">';
             $html .= '<div class="bonus-offer-box--label">' . $label . '</div>';
@@ -224,31 +265,66 @@ add_shortcode('get_operator_review', 'get_operator_review_function');
 function get_operator_review_function($atts) {
     $atts = shortcode_atts(
         array(
-            'count' => 1, 
+            'count' => '', 
             'slug' => '', 
-            // 'type' => [],   
+            'type' => '',   
         ), 
         $atts, 
         'get_operator_review'
     );
 
-    if (!empty($atts['count']) && empty($atts['slug'])) {
+    //no shortcode attributes used (to use only in operators single template query)
+    if (empty($atts['count']) && empty($atts['slug'])) {
+        $args = array(
+            'post_type'      => 'operator',
+            'p'              => get_the_ID(),
+        );
+    }
+
+    //use both count and type atttributes - display operators of the type and count set by user (can be used in pages, posts)
+    elseif (!empty($atts['count']) && !empty($atts['type']) && empty($atts['slug'])) { 
+        $args = array(
+            'post_type'      => 'operator',
+            'post_status'    => 'publish',
+            'orderby'        => 'modified',
+            'order'          => 'DESC',
+            'posts_per_page' => intval($atts['count']),
+            'tax_query' => array(array('taxonomy' => 'operator-type', 'field' => 'slug', 'terms' => explode(",", $atts['type'])))
+        );
+    }
+
+    //use only type attribute - display all operators of the type set by user (can be used in pages, posts)
+    // elseif (!empty($atts['type']) && empty($atts['count']) && empty($atts['slug'])) { 
+    //     $args = array(
+    //         'post_type'      => 'operator',
+    //         'post_status'    => 'publish',
+    //         'orderby'        => 'modified',
+    //         'order'          => 'DESC',
+    //         'posts_per_page' => -1,
+    //         'tax_query' => array(array('taxonomy' => 'operator-type', 'field' => 'slug', 'terms' => explode(",", $atts['type'])))
+    //     );
+    // }
+
+    //use only count attribute - display operators of all types and count set by user (can be used in pages, posts)
+    elseif (!empty($atts['count']) && empty($atts['slug']) && empty($atts['type'])) {
         $args = array(
             'posts_per_page' => intval($atts['count']),
-            'post_type' => 'operator',
-            'post_status' => 'publish',
+            'post_type'      => 'operator',
+            'post_status'    => 'publish',
             'orderby'        => 'modified',
             'order'          => 'DESC',
         );
     }
-    elseif (!empty($atts['slug'])) {
+
+    //use slug attribute - display operator of the slug set by user no matter their type (can be used in pages, posts)
+    elseif (!empty($atts['slug']) && empty($atts['count']) && empty($atts['type'])) {
         $args = array(
-            'name' => sanitize_title($atts['slug']),
-            'post_type' => 'operator',
-            'post_status' => 'publish',
+            'name'           => sanitize_title($atts['slug']),
+            'post_type'      => 'operator',
+            'post_status'    => 'publish',
             'posts_per_page' => 1,
         );
-    }
+    } 
 
     $query = new WP_Query($args);
 

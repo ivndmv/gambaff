@@ -7,14 +7,15 @@ Description:
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 8.1
-Version: 0.0.7
+Version: 0.0.8
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: gambaff
 Tags: 
 */
 .bonus-offer-box {
-    background: #fff;
+    /* background: #fff; */
+    background: var(--wp--preset--gradient--custom-color-2);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -36,13 +37,18 @@ Tags:
 
 .bonus-offer-box--img {
     font-size: 1.75rem;
-    display: flex ;
-    flex-direction: column;
+    display: flex;
+    flex-direction: row;
     flex-wrap: nowrap;
     gap: 10px;
     line-height: 1;
     align-items: center;
     text-align: center;
+}
+
+.bonus-offer-box--img a img, .operator-review--img img {
+    border-radius: 100px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .cta-button {
