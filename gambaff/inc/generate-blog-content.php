@@ -37,9 +37,15 @@ function handle_generate_blog_content_forms_js() {
                 if (form.id == 'generate-blog-posts') {
                     const suggestedTopics = form.querySelector('#suggested-topics').getAttribute('data-topics')
                     const generateBlogPostDefaultPrompt = form.querySelector('#generate-blog-post-default-prompt').value
+                    const linkTo = form.querySelector('#generate-blog-post-link-to').value
+                    const linkText = form.querySelector('#generate-blog-post-link-text').value
+                    const selectDate = form.querySelector('#generate-blog-post-date').value
                     data.append('action', 'handle_generate_blog_content_publish_forms')
                     data.append('suggested_topics', suggestedTopics)
                     data.append('generate_blog_post_default_prompt', generateBlogPostDefaultPrompt)
+                    data.append('link_to', linkTo)
+                    data.append('link_text', linkText)
+                    data.append('select_date', selectDate)
 
                 }
 
@@ -111,14 +117,19 @@ function handle_generate_blog_content_publish_forms() {
     $generate_blog_post_default_prompt = $_POST['generate_blog_post_default_prompt'];
     $suggested_topics_array = explode(', ', $suggested_topics);
 
+    $link_to = $_POST['link_to'];
+    $link_to = $_POST['link_text'];
+    $select_date = $_POST['select_date'];
     $language = get_locale();
     $site_name = get_bloginfo( 'name' );
     $generate_blog_post_default_prompt_edited = str_replace('{{language}}', $language, $generate_blog_post_default_prompt);
     $generate_blog_post_default_prompt_edited = str_replace('{{site_name}}', $site_name, $generate_blog_post_default_prompt_edited);
+    $generate_blog_post_default_prompt_edited = str_replace('{{link_url}}', $link_to, $generate_blog_post_default_prompt_edited);
+    $generate_blog_post_default_prompt_edited = str_replace('{{link_text}}', $link_text, $generate_blog_post_default_prompt_edited);
 
 
-    //check for the endmost future post
     $base_date = strtotime('now');
+    //check for the endmost future post
     $future_post = get_posts([
         'post_status'    => 'future',   
         'post_type'      => 'post',       
@@ -127,24 +138,67 @@ function handle_generate_blog_content_publish_forms() {
         'numberposts'    => 1,              
     ]);
 
-    if (!empty($future_post)) { 
-        $endmost_post_date = $future_post[0]->post_date;
-        $base_date = strtotime($endmost_post_date);
+    //check for the oldest past post
+    $past_post = get_posts([
+        'post_status'    => 'publish',   
+        'post_type'      => 'post',       
+        'orderby'        => 'post_date',   
+        'order'          => 'ASC',         
+        'numberposts'    => 1,              
+    ]);
+
+    if ($select_date == 'future') {
+        if (!empty($future_post)) { 
+            $endmost_post_date = $future_post[0]->post_date;
+            $base_date = strtotime($endmost_post_date);
+        }
+    }
+
+    if ($select_date == 'past') {
+        if (!empty($past_post)) { 
+            $oldest_post_date = $past_post[0]->post_date;
+            $base_date = strtotime($oldest_post_date);
+        }
     }
 
     foreach($suggested_topics_array as $index => $topic) {
+        // $post_array = array(
+        //     'post_title'    => $topic,
+        //     'post_content'  => $content,
+        //     'post_author'   => 1,
+        //     'post_type'     => 'post',
+        // );
         $scheduled_date = date('Y-m-d H:i:s', strtotime("+$index day", $base_date)); // 1 day after
+        $past_date = date('Y-m-d H:i:s', strtotime("-$index day", $base_date)); // 1 day before
         $prompt = $generate_blog_post_default_prompt_edited . $topic;
         $content = send_prompt_to_chatgpt($prompt);
-        $post_array = array(
-            'post_title'    => $topic,
-            'post_content'  => $content,
-            'post_status'   => 'future',
-            'post_author'   => 1,
-            'post_type'     => 'post',
-            'post_date'     => $scheduled_date,
-        );
+
+        if ($select_date == 'future') {
+            $post_array = array(
+                'post_title'    => $topic,
+                'post_content'  => $content,
+                'post_author'   => 1,
+                'post_type'     => 'post',
+                'post_status'   => 'future',
+                'post_date'     => $scheduled_date
+            );
+            // $post_array['post_status'] = 'future';
+            // $post_array['post_date'] = $scheduled_date;
+        }
+        if ($select_date == 'past') {
+            $post_array = array(
+                'post_title'    => $topic,
+                'post_content'  => $content,
+                'post_author'   => 1,
+                'post_type'     => 'post',
+                'post_status'   => 'publish',
+                'post_date'     => $past_date
+            );
+            // $post_array['post_status'] = 'publish';
+            // $post_array['post_date'] = $past_date;
+        }
         $post_id = wp_insert_post($post_array);
+
         if (!is_wp_error($post_id)) { 
             $post_created = 'Post created '.$post_id.'';
             // $result['post_created'][] = $topic; // ??????????????

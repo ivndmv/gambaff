@@ -164,12 +164,14 @@ function handle_forms() {
 
     $language = get_locale();
     $site_name = get_bloginfo( 'name' );
+    $site_homepage_url = get_home_url();
     $json_prompts = file_get_contents( plugin_dir_path(__FILE__) . '/chatgpt-operator-review-prompt.json');
     $prompts_array = json_decode($json_prompts, true);
     $operator_review_prompt = $prompts_array['operator_review'];
     $operator_review_prompt = str_replace('{{operator_name}}', $operator_name, $operator_review_prompt);
     $operator_review_prompt = str_replace('{{language}}', $language, $operator_review_prompt);
     $operator_review_prompt = str_replace('{{site_name}}', $site_name, $operator_review_prompt);
+    $operator_review_prompt = str_replace('{{link_url}}', $site_homepage_url, $operator_review_prompt);
     $operator_review_content = send_prompt_to_chatgpt($operator_review_prompt);
 
     // $result['operator_review_prompt'] = $operator_review_prompt;

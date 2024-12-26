@@ -179,6 +179,14 @@ function operators_manager_generate_content_callback() {
             $html .= '<p>You will see the default prompt. Place your topic after the default prompt. You can edit or remove the default prompt, but it is not recommended.</p>';
             $html .= '<div class="page-slug" style="display:none;">'.$page_slug.'</div>';
             $html .= '<div><textarea class="page-content-prompt" name="'.$page_slug.'-textarea" id="'.$page_slug.'-textarea" rows="5" cols="50" required>'.$page_content_default_prompt.'</textarea></div>';
+            $html .= '<br/>';
+            $html .= '<label for="generate-page-content-link-to">Link to URL</label>';
+            $html .= '<p>Add an URL where to link the article</p>';
+            $html .= '<input class="generate-page-content-link-to" name="generate-page-content-link-to" type="text" value="'.get_home_url().'"/>';
+            $html .= '<br/><br/>';
+            $html .= '<label for="generate-page-content-link-text">Link Anchor Text</label>';
+            $html .= '<p>Add an anchor text for the link</p>';
+            $html .= '<input class="generate-page-content-link-text" name="generate-page-content-link-text" type="text" value="online casino"/>';
             $html .= '<div>'.$submit_button.'</div>';
             $html .= '</form>';
             $html .= '</div>';
@@ -215,6 +223,23 @@ function operators_manager_generate_content_callback() {
     $html .= '<label>Your suggested topics</label>';
     $html .= '<p>Each topics is in a new line. Posts will be scheduled for the future.</p>';
     $html .= '<div id="suggested-topics"></div>';
+    $html .= '<br/>';
+    $html .= '<label for="generate-blog-post-link-to">URL to link to</label>';
+    $html .= '<p>Add an URL where to link the article</p>';
+    $html .= '<input id="generate-blog-post-link-to" name="generate-blog-post-link-to" type="text" value="'.get_home_url().'"/>';
+
+    $html .= '<br/><br/>';
+    $html .= '<label for="generate-blog-post-link-text">Link Anchor Text</label>';
+    $html .= '<p>Add an anchor text for the link</p>';
+    $html .= '<input id="generate-blog-post-link-text" name="generate-blog-post-link-text" type="text" value="online casino"/>';
+    
+    $html .= '<br/><br/>';
+    $html .= '<label for="generate-blog-post-date">Schedule Posts</label>';
+    $html .= '<p>Choose to schedule for future or publish with past dates</p>';
+    $html .= '<select id="generate-blog-post-date" name="generate-blog-post-date">';
+    $html .= '<option value="future">Future</option>';
+    $html .= '<option value="past">Past</option>';
+    $html .= '</select>';
     $html .= $submit_button;
     $html .= '</form>';
     $html .= '</div>';

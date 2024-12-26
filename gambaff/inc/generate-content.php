@@ -22,7 +22,8 @@ function handle_generate_page_content_forms_js() {
                 const pageName = form.querySelector('.page-name').textContent
                 const pageSlug = form.querySelector('.page-slug').textContent
                 const pageContentPrompt = form.querySelector('.page-content-prompt').value
-
+                const linkTo = form.querySelector('.generate-page-content-link-to').value
+                const linkText = form.querySelector('.generate-page-content-link-text').value
 
                 let data = new FormData(form)
                 data.append('action', 'handle_generate_page_content_forms')
@@ -30,6 +31,9 @@ function handle_generate_page_content_forms_js() {
                 data.append('page_name', pageName)
                 data.append('page_slug', pageSlug)
                 data.append('page_content_prompt', pageContentPrompt)
+                data.append('link_to', linkTo)
+                data.append('link_text', linkText)
+
 
 
                 let ajaxScript = { ajaxUrl : window.location.origin + '/wp-admin/admin-ajax.php' } // !!!the url must be changed
@@ -67,11 +71,16 @@ function handle_generate_page_content_forms() {
     $page_slug = $_POST['page_slug'];
     $page_content_prompt = $_POST['page_content_prompt'];
 
+    $link_to = $_POST['link_to'];
+    $link_text = $_POST['link_text'];
     $language = get_locale();
     $site_name = get_bloginfo( 'name' );
 
     $page_content_prompt_edited = str_replace('{{language}}', $language, $page_content_prompt);
     $page_content_prompt_edited = str_replace('{{site_name}}', $site_name, $page_content_prompt_edited);
+    $page_content_prompt_edited = str_replace('{{link_url}}', $link_to, $page_content_prompt_edited);
+    $page_content_prompt_edited = str_replace('{{link_text}}', $link_text, $page_content_prompt_edited);
+
 
     $page_content = send_prompt_to_chatgpt($page_content_prompt_edited);
 
@@ -80,6 +89,7 @@ function handle_generate_page_content_forms() {
     $result['page_name'] = $page_name;
     $result['page_slug'] = $page_slug;
     $result['page_content_prompt'] = $page_content_prompt;
+    $result['link_to'] = $link_to;
     $result['page_content_prompt_edited'] = $page_content_prompt_edited;
     $result['page_content'] = $page_content;
 
