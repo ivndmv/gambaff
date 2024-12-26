@@ -49,7 +49,7 @@ function get_operator_license_function() {
         }
     }
     $label = __('License', 'gambaff');
-    return '<div style="font-size: 0.9rem;">'.$label.'</div><div>'.$term_names.'</div>';
+    return '<div style="font-size: 0.9rem;">'.$label.'</div><div class="view-more-expand-content">'.$term_names.'</div>';
 }
 
 add_shortcode('get_operator_deposit_methods', 'get_operator_deposit_methods_function');
@@ -64,7 +64,7 @@ function get_operator_deposit_methods_function() {
         }
     }
     $label = __('Deposit methods', 'gambaff');
-    return '<div style="font-size: 0.9rem;">'.$label.'</div><div>'.$term_names.'</div>';
+    return '<div style="font-size: 0.9rem;">'.$label.'</div><div class="view-more-expand-content">'.$term_names.'</div>';
     return $term_names;
 }
 
@@ -80,7 +80,7 @@ function get_operator_withdrawal_methods_function() {
         }
     }
     $label = __('Withdrawal methods', 'gambaff');
-    return '<div style="font-size: 0.9rem;">'.$label.'</div><div>'.$term_names.'</div>';
+    return '<div style="font-size: 0.9rem;">'.$label.'</div><div class="view-more-expand-content">'.$term_names.'</div>';
     return $term_names;
 }
 
@@ -96,7 +96,7 @@ function get_operator_software_provider_function() {
         }
     }
     $label = __('Software providers', 'gambaff');
-    return '<div style="font-size: 0.9rem;">'.$label.'</div><div>'.$term_names.'</div>';
+    return '<div style="font-size: 0.9rem;">'.$label.'</div><div class="view-more-expand-content">'.$term_names.'</div>';
     return $term_names;
 }
 
@@ -232,26 +232,32 @@ function get_operator_bonus_offer_box_function($atts) {
             $tc_link_text = __('T&Cs', 'gambaff');
             $button_text = __('Claim Offer', 'gambaff');
 
-            $html .= '<div class="bonus-offer-box">';
-            $html .= '<div class="bonus-offer-box--label">' . $label . '</div>';
-            
-            $html .= '<div class="bonus-offer-box--img">';
-            $html .= '<a class="cta-count" href="' . home_url() . '/visit/site/' . do_shortcode('[get_operator_slug]') . '" target="_blank" aria-label="'.do_shortcode('[get_operator_slug]').'">';
-            $html .= '<img src="' . esc_url($featured_image_url) . '" loading="lazy" width="100"/ alt="'.do_shortcode('[get_operator_slug]').'">';
-            $html .= '</a>';
-            $html .= do_shortcode('[get_operator_bonus_offer]');
-            $html .= '</div>';
+            $has_bonus_offer = do_shortcode('[get_operator_bonus_offer]');
 
-            $html .= '<div>';
-            $html .= '<a class="bonus-offer-box--button cta-button cta-count" href="' . home_url() . '/visit/site/' . do_shortcode('[get_operator_slug]') . '" target="_blank" aria-label="'.do_shortcode('[get_operator_slug]').'">' . esc_html($button_text) . '</a>';
-            $html .= '</div>';
-
-            $html .= '<div class="bonus-offer-box--tc">';
-            $html .= do_shortcode('[get_operator_tc_text]');
-            $html .= ' <a class="cta-count" href="' . home_url() . '/visit/site/tc/' . do_shortcode('[get_operator_slug]') . '" target="_blank" aria-label="'.do_shortcode('[get_operator_slug]').'">' . esc_html($tc_link_text) . '</a>';
-            $html .= '</div>';
-
-            $html .= '</div>'; // Close bonus-offer-box
+            if ($has_bonus_offer) {
+                $html .= '<div class="bonus-offer-box">';
+                $html .= '<div class="bonus-offer-box--label">' . $label . '</div>';
+                
+                $html .= '<div class="bonus-offer-box--img">';
+                $html .= '<a class="cta-count" href="' . home_url() . '/visit/site/' . do_shortcode('[get_operator_slug]') . '" target="_blank" aria-label="'.do_shortcode('[get_operator_slug]').'">';
+                $html .= '<img src="' . esc_url($featured_image_url) . '" loading="lazy" width="100"/ alt="'.do_shortcode('[get_operator_slug]').'">';
+                $html .= '</a>';
+                $html .= do_shortcode('[get_operator_bonus_offer]');
+                $html .= '</div>';
+    
+                $html .= '<div>';
+                $html .= '<a class="bonus-offer-box--button cta-button cta-count" href="' . home_url() . '/visit/site/' . do_shortcode('[get_operator_slug]') . '" target="_blank" aria-label="'.do_shortcode('[get_operator_slug]').'">' . esc_html($button_text) . '</a>';
+                $html .= '</div>';
+    
+                $html .= '<div class="bonus-offer-box--tc">';
+                $html .= do_shortcode('[get_operator_tc_text]');
+                $html .= ' <a class="cta-count" href="' . home_url() . '/visit/site/tc/' . do_shortcode('[get_operator_slug]') . '" target="_blank" aria-label="'.do_shortcode('[get_operator_slug]').'">' . esc_html($tc_link_text) . '</a>';
+                $html .= '</div>';
+    
+                $html .= '</div>'; // Close bonus-offer-box
+            } else {
+                $html .= '';
+            }
         }
         wp_reset_postdata();
     } else {
@@ -372,11 +378,12 @@ function get_operator_review_function($atts) {
 add_shortcode('get_gambling_disclaimer', 'get_gambling_disclaimer_function');
 function get_gambling_disclaimer_function() { 
     $html = '<p>';
-    $html .= __('This website is intended for players aged 18 and over. Please gamble responsibly.', 'gambaff');
+    $html .= __('Contact: ', 'gambaff');
+    $html .= '<a href="mailto:info@gambaff.online">info@gambaff.online</a>';
     $html .= '</p>';
 
     $html .= '<p>';
-    $html .= __('Gambling should be a fun and enjoyable activity. If you feel that your gambling is becoming a problem, please seek help. Support:', 'gambaff');
+    $html .= __('This website is intended for players aged 18 and over. Please gamble responsibly.', 'gambaff');
     $html .= '</p>';
 
     $html .= '<p>';

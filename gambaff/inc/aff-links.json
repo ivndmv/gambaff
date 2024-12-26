@@ -58,5 +58,20 @@
         "slug": "888casino",
         "aff_link": "https:\/\/www.888casino.com",
         "tc_link": "https:\/\/www.888casino.com"
+    },
+    {
+        "slug": "n1casino",
+        "aff_link": "https:\/\/www.n1casino.com",
+        "tc_link": ""
+    },
+    {
+        "slug": "zencasino",
+        "aff_link": "https:\/\/www.11zencasino.com\/",
+        "tc_link": "https:\/\/www.11zencasino.com\/"
+    },
+    {
+        "slug": "kakaducasino",
+        "aff_link": "https:\/\/casinokakadu.com\/",
+        "tc_link": "https:\/\/casinokakadu.com\/bg\/bonus-terms"
     }
 ]

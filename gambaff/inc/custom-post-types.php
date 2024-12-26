@@ -244,12 +244,13 @@ function render_operator_meta_box($post) {
     foreach ($fields as $field => $label) {
         $value = get_post_meta($post->ID, $field, true);
         echo '<label for="' . $field . '">' . $label . '</label><br />';
+		echo '<input type="text" id="' . $field . '" name="' . $field . '" value="' . esc_attr($value) . '" size="25" /><br /><br />';
         
-        if ($field === 'operator_logo' || 'operator_terms_and_conditions_link' || $field === 'operator_affiliate_link') {
-            echo '<input type="url" id="' . $field . '" name="' . $field . '" value="' . esc_attr($value) . '" size="25" /><br /><br />';
-        } else {
-            echo '<textarea id="' . $field . '" name="' . $field . '" rows="4" cols="50">' . esc_textarea($value) . '</textarea><br /><br />';
-        }
+        // if ($field === 'operator_logo' || 'operator_terms_and_conditions_link' || $field === 'operator_affiliate_link') {
+        //     echo '<input type="text" id="' . $field . '" name="' . $field . '" value="' . esc_attr($value) . '" size="25" /><br /><br />';
+        // } else {
+        //     echo '<textarea id="' . $field . '" name="' . $field . '" rows="4" cols="50">' . esc_textarea($value) . '</textarea><br /><br />';
+        // }
     }
 }
 
@@ -276,11 +277,12 @@ function save_operator_meta_box_data($post_id) {
 
     foreach ($fields as $field) {
         if (isset($_POST[$field])) {
-            if ($field === 'operator_logo' || 'operator_terms_and_conditions_link' || $field === 'operator_affiliate_link') {
-                update_post_meta($post_id, $field, esc_url_raw($_POST[$field]));
-            } else {
-                update_post_meta($post_id, $field, sanitize_textarea_field($_POST[$field]));
-            }
+			update_post_meta($post_id, $field, sanitize_text_field($_POST[$field]));
+            // if ($field === 'operator_logo' || 'operator_terms_and_conditions_link' || $field === 'operator_affiliate_link') {
+            //     update_post_meta($post_id, $field, sanitize_text_field($_POST[$field]));
+            // } else {
+            //     update_post_meta($post_id, $field, sanitize_textarea_field($_POST[$field]));
+            // }
         }
     }
 }
