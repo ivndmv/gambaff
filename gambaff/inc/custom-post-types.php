@@ -288,4 +288,18 @@ function save_operator_meta_box_data($post_id) {
 }
 add_action('save_post', 'save_operator_meta_box_data');
 
+//default terms
+
+// Add this code to your theme's functions.php file.
+
+function default_operator_type_terms() {
+    $terms = ['Casino', 'Bookmaker'];
+    foreach ($terms as $term) {
+        if (!term_exists($term, 'operator-type')) {
+            wp_insert_term($term, 'operator-type');
+        }
+    }
+}
+add_action('after_switch_theme', 'default_operator_type_terms');
+
 ?>

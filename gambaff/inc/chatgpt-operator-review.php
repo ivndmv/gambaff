@@ -11,9 +11,9 @@ function send_prompt_to_chatgpt($prompt) {
         'Authorization: Bearer '.$openai_api_key.'',
     ]);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-        'model' => 'gpt-4o-mini', // Choose the model you prefer
+        'model' => 'gpt-4o', // Choose the model you prefer
         'messages' => [
-            ['role' => 'user', 'content' => $prompt]
+            ['role' => 'developer', 'content' => $prompt]
         ],
         'max_tokens' => 4096,  // Set appropriate max_tokens
     ]));
